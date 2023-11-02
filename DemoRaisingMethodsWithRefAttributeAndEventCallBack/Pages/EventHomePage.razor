@@ -1,0 +1,50 @@
+﻿@page "/home"
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">List of Names with Event CallBack</div>
+                <div class="card-body">
+                    <ol class="list-group">
+                        @* @if (Names!.Count > 0)
+                        {
+                            foreach (string name in Names)
+                            {
+                                <li class="list-group-item">@name</li>
+                            }
+                        } *@
+
+                        @if (Users!.Count > 0)
+                        {
+                            foreach (User user in Users)
+                            {
+                                <li class="list-group-item">@user.Id @user.Name  @user.Age</li>
+                            }
+                        }
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<EventAddItemComponent AddNameEventCallBack="AddName"></EventAddItemComponent>
+
+
+@code {
+    //private List<string>? Names { get; set; } = new();
+
+    // private void AddName(string name)
+    // {
+    //     if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name)) return;
+    //     Names!.Add(name);
+    //     StateHasChanged();
+    // }
+
+    private List<User>? Users { get; set; } = new();
+    private void AddName(User user)
+    {
+        if (user is null) return;
+        Users!.Add(user);
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,38 @@
+﻿
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            @* <InputText class="form-control mb-2" @bind-Value="Name"></InputText>
+            <button class="btn btn-info" @onclick="HandleAddName">Add Name to List</button> *@
+
+            <EditForm Model="user" OnSubmit="HandleAddUser">
+                <InputNumber class="form-control mb-2" @bind-Value="user.Id"></InputNumber>
+                <InputText class="form-control mb-2" @bind-Value="user.Name"></InputText>
+                <InputNumber class="form-control mb-2" @bind-Value="user.Age"></InputNumber>
+                <button class="btn btn-info" type="submit">Add Name to List</button>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    // private string? Name { get; set; }
+  
+    //[Parameter] public EventCallback<string> AddNameEventCallBack { get; set; }
+    
+
+    // public async void HandleAddName()
+    // {
+    //     await AddNameEventCallBack.InvokeAsync(Name);
+    //     Name = string.Empty;
+    // }
+
+    private User user { get; set; } = new();
+    [Parameter] public EventCallback<User> AddNameEventCallBack { get; set; }
+    public async void HandleAddUser()
+    {
+        await AddNameEventCallBack.InvokeAsync(user);
+        user = new User();
+    }
+}

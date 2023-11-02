@@ -1,0 +1,32 @@
+﻿@page "/"
+
+<RefAddItemComponent @ref="AddItemComponentRefernce"></RefAddItemComponent>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            @* <InputText class="form-control mb-2" @bind-Value="Name"></InputText>
+            <button class="btn btn-info" @onclick="HandleAddName">Add Name to List</button> *@
+
+            <EditForm Model="user" OnSubmit="HandleAddUser">
+                <InputNumber class="form-control mb-2" @bind-Value="user.Id"></InputNumber>
+                <InputText class="form-control mb-2" @bind-Value="user.Name"></InputText>
+             <InputNumber class="form-control mb-2" @bind-Value="user.Age"></InputNumber>
+            <button class="btn btn-info" type="submit">Add Name to List</button>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    //public string? Name { get; set; }
+    public User user { get; set; } = new();
+    RefAddItemComponent AddItemComponentRefernce = new();
+
+    private void HandleAddUser()
+    {
+        if (user is null) return;
+        AddItemComponentRefernce.AddUser(user);
+        user = new User();
+    }
+}
